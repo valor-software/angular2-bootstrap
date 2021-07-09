@@ -64,7 +64,7 @@ export class BsDatepickerInlineDirective implements OnInit, OnDestroy, OnChanges
    * Emits when datepicker value has been changed
    */
   @Output() bsValueChange: EventEmitter<Date> = new EventEmitter();
-  protected _subs: Subscription[] = [];
+  protected _subs?: Subscription;
   private readonly _datepicker: ComponentLoader<BsDatepickerInlineContainerComponent>;
   private _datepickerRef?: ComponentRef<BsDatepickerInlineContainerComponent>;
 
@@ -110,9 +110,63 @@ export class BsDatepickerInlineDirective implements OnInit, OnDestroy, OnChanges
 
   ngOnInit(): void {
     this.setConfig();
+    this.updateSubscriptions();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this._datepickerRef || !this._datepickerRef.instance) {
+      return;
+    }
+
+    let shouldSetConfig = false;
+
+    if (changes.minDate) {
+      this._datepickerRef.instance.minDate = this.minDate;
+      shouldSetConfig = true;
+    }
+
+    if (changes.maxDate) {
+      this._datepickerRef.instance.maxDate = this.maxDate;
+      shouldSetConfig = true;
+    }
+
+    if (changes.datesDisabled) {
+      this._datepickerRef.instance.datesDisabled = this.datesDisabled;
+      shouldSetConfig = true;
+    }
+
+    if (changes.datesEnabled) {
+      this._datepickerRef.instance.datesEnabled = this.datesEnabled;
+      this._datepickerRef.instance.value = this._bsValue;
+      shouldSetConfig = true;
+    }
+
+    if (changes.isDisabled) {
+      this._datepickerRef.instance.isDisabled = this.isDisabled;
+      shouldSetConfig = true;
+    }
+
+    if (changes.dateCustomClasses) {
+      this._datepickerRef.instance.dateCustomClasses = this.dateCustomClasses;
+      shouldSetConfig = true;
+    }
+
+    if (changes.dateTooltipTexts) {
+      this._datepickerRef.instance.dateTooltipTexts = this.dateTooltipTexts;
+      shouldSetConfig = true;
+    }
+
+    if (shouldSetConfig) {
+      this.setConfig();
+    }
+  }
+
+  updateSubscriptions(): void {
+    this._subs?.unsubscribe();
+    this._subs = new Subscription();
 
     // if date changes from external source (model -> view)
-    this._subs.push(
+    this._subs.add(
       this.bsValueChange.subscribe((value: Date) => {
         if (this._datepickerRef) {
           this._datepickerRef.instance.value = value;
@@ -122,52 +176,11 @@ export class BsDatepickerInlineDirective implements OnInit, OnDestroy, OnChanges
 
     // if date changes from picker (view -> model)
     if (this._datepickerRef) {
-      this._subs.push(
+      this._subs.add(
         this._datepickerRef.instance.valueChange.subscribe((value: Date) => {
           this.bsValue = value;
         })
       );
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!this._datepickerRef || !this._datepickerRef.instance) {
-      return;
-    }
-
-    if (changes.minDate) {
-      this._datepickerRef.instance.minDate = this.minDate;
-      this.setConfig();
-    }
-
-    if (changes.maxDate) {
-      this._datepickerRef.instance.maxDate = this.maxDate;
-      this.setConfig();
-    }
-
-    if (changes.datesDisabled) {
-      this._datepickerRef.instance.datesDisabled = this.datesDisabled;
-      this.setConfig();
-    }
-
-    if (changes.datesEnabled) {
-      this._datepickerRef.instance.datesEnabled = this.datesEnabled;
-      this._datepickerRef.instance.value = this._bsValue;
-    }
-
-    if (changes.isDisabled) {
-      this._datepickerRef.instance.isDisabled = this.isDisabled;
-      this.setConfig();
-    }
-
-    if (changes.dateCustomClasses) {
-      this._datepickerRef.instance.dateCustomClasses = this.dateCustomClasses;
-      this.setConfig();
-    }
-
-    if (changes.dateTooltipTexts) {
-      this._datepickerRef.instance.dateTooltipTexts = this.dateTooltipTexts;
-      this.setConfig();
     }
   }
 
@@ -196,6 +209,8 @@ export class BsDatepickerInlineDirective implements OnInit, OnDestroy, OnChanges
       .attach(BsDatepickerInlineContainerComponent)
       .to(this._elementRef)
       .show();
+
+    this.updateSubscriptions();
   }
 
   ngOnDestroy() {
