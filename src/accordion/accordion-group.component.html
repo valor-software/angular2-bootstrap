@@ -1,4 +1,4 @@
-<div class="panel card" [ngClass]="panelClass">
+<ng-template #acc_inner>
   <div
     class="panel-heading card-header"
     role="tab"
@@ -19,4 +19,10 @@
       <ng-content></ng-content>
     </div>
   </div>
+</ng-template>
+<div class="panel card" [ngClass]="panelClass" *ngIf="!hideContainer">
+  <ng-container *ngTemplateOutlet="acc_inner"></ng-container>
 </div>
+<ng-container *ngIf="hideContainer">
+  <ng-container *ngTemplateOutlet="acc_inner"></ng-container>
+</ng-container>

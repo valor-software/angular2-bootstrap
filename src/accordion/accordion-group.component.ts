@@ -33,6 +33,8 @@ export class AccordionPanelComponent implements OnInit, OnDestroy {
   @Input() panelClass = 'panel-default';
   /** if <code>true</code> — disables accordion group */
   @Input() isDisabled = false;
+  /**Allow show/hide div container*/
+  @Input() hideContainer = false;
   /** Emits when the opened state changes */
   @Output() isOpenChange: EventEmitter<boolean> = new EventEmitter();
 
