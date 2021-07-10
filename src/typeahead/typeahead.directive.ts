@@ -322,10 +322,10 @@ export class TypeaheadDirective implements OnInit, OnDestroy {
       this.typeaheadOnBlur.emit(this._container.active);
     }
 
-    if (!this.container && this._matches.length === 0) {
+    if (!this.container && this._matches?.length === 0) {
       this.typeaheadOnBlur.emit(new TypeaheadMatch(
         this.element.nativeElement.value,
-        this.element.nativeElement.value,
+        this.element.nativeElement.value, 
         false));
     }
   }
