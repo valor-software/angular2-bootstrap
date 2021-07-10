@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <div class="panel-collapse collapse" role="tabpanel" [collapse]="!isOpen" [isAnimated]="isAnimated">
+  <div class="panel-collapse" role="tabpanel" [@openClose]="getAnimationKey()" [@.disabled]="!isAnimated">
     <div class="panel-body card-block card-body">
       <ng-content></ng-content>
     </div>

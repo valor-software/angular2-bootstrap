@@ -3,6 +3,15 @@ import {
 } from '@angular/core';
 import { isBs3 } from 'ngx-bootstrap/utils';
 import { AccordionComponent } from './accordion.component';
+import { trigger, state, transition, style, animate } from '@angular/animations';
+import {
+  expandedStyleDefinition,
+  collapsedStyleDefinition,
+  COLLAPSE_ANIMATION_TIMING
+} from './accordion-animations';
+
+const openAnimationKey = 'open';
+const closedAnimationKey = 'closed';
 
 /**
  * ### Accordion heading
@@ -18,7 +27,19 @@ import { AccordionComponent } from './accordion.component';
     class: 'panel',
     style: 'display: block'
   },
-  styleUrls: ['./accordion.scss']
+  styleUrls: ['./accordion.scss'],
+  animations: [
+    trigger('openClose', [
+      state(openAnimationKey, style({ ...expandedStyleDefinition })),
+      state(closedAnimationKey, style({ ...collapsedStyleDefinition })),
+      transition('open => closed', [
+        animate(COLLAPSE_ANIMATION_TIMING)
+      ]),
+      transition('closed => open', [
+        animate(COLLAPSE_ANIMATION_TIMING)
+      ])
+    ])
+  ]
 })
 export class AccordionPanelComponent implements OnInit, OnDestroy {
   /** turn on/off animation */
@@ -80,5 +101,9 @@ export class AccordionPanelComponent implements OnInit, OnDestroy {
     if (!this.isDisabled) {
       this.isOpen = !this.isOpen;
     }
+  }
+
+  getAnimationKey(): string {
+    return this.isOpen ? openAnimationKey : closedAnimationKey;
   }
 }
