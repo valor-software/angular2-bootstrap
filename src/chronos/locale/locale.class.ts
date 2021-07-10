@@ -279,7 +279,7 @@ export class Locale {
     let i;
     for (i = 0; i < 12; i++) {
       // make the regex if we don't have it already
-      date = new Date(Date.UTC(2000, i));
+      date = new Date(Date.UTC(2000, i, 15));
       if (strict && !this._longMonthsParse[i]) {
         const _months = this.months(date, '', true).replace('.', '');
         const _shortMonths = this.monthsShort(date, '', true).replace('.', '');
