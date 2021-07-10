@@ -13,9 +13,6 @@ import { datepickerAnimation } from '../../datepicker-animations';
   selector: 'bs-datepicker-inline-container',
   providers: [BsDatepickerStore, BsDatepickerEffects],
   templateUrl: './bs-datepicker-view.html',
-  host: {
-    '(click)': '_stopPropagation($event)'
-  },
   animations: [datepickerAnimation]
 })
 export class BsDatepickerInlineContainerComponent extends BsDatepickerContainerComponent
