@@ -36,15 +36,15 @@ export function arrow(data: Data) {
   // Compute the sideValue using the updated target offsets
   // take target margin in account because we don't have this info available
   const css = getStyleComputedProperty(data.instance.target) as unknown as Record<string, string>;
-  const targetMarginSide = parseFloat(css[`margin${sideCapitalized}`]);
-  const targetBorderSide = parseFloat(css[`border${sideCapitalized}Width`]);
+  const targetMarginSide = parseFloat(css[`margin${sideCapitalized}`]) || 0;
+  const targetBorderSide = parseFloat(css[`border${sideCapitalized}Width`]) || 0;
 
   // compute center of the target
   let center: number;
   if (!placementVariation) {
     center = Number((data).offsets.host[side]) + Number(data.offsets.host[len] / 2 - arrowElementSize / 2);
   } else {
-    const targetBorderRadius = parseFloat(css.borderRadius);
+    const targetBorderRadius = parseFloat(css.borderRadius) || 0;
     const targetSideArrowOffset = Number(targetMarginSide + targetBorderSide + targetBorderRadius);
     center = side === placementVariation ?
       Number((data).offsets.host[side]) + targetSideArrowOffset :
