@@ -393,7 +393,7 @@ export class ComponentLoader<T> {
 
         return new ContentRef([_viewRef.rootNodes], _viewRef);
       }
-      const viewRef = content.createEmbeddedView({});
+      const viewRef = content.createEmbeddedView(context);
       this._applicationRef.attachView(viewRef);
 
       return new ContentRef([viewRef.rootNodes], viewRef);
