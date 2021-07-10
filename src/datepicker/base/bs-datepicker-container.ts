@@ -26,6 +26,10 @@ export abstract class BsDatepickerAbstractComponent {
   showClearBtn?: boolean;
   clearBtnLbl?: string;
   clearPos?: string;
+  customDateBtn?: Date;
+  customBtnLabel?: string;
+  customBtnPos?: string;
+
 
   _effects?: BsDatepickerEffects;
   customRanges: BsCustomDates[] = [];
@@ -121,6 +125,9 @@ export abstract class BsDatepickerAbstractComponent {
 
   // eslint-disable-next-line
   clearDate(): void {}
+
+  // eslint-disable-next-line
+  setCustomDate(): void {}
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _stopPropagation(event: any): void {

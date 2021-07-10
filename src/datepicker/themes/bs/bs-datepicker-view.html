@@ -54,6 +54,14 @@
     </div>
 
     <div class="bs-datepicker-buttons" *ngIf="showTodayBtn || showClearBtn">
+      <div class="btn-custom-wrapper"
+            [class.custom-left]="customBtnPos === 'left'"
+            [class.custom-right]="customBtnPos === 'right'"
+            [class.custom-center]="customBtnPos === 'center'"
+            *ngIf="customDateBtn != null">
+        <button class="btn btn-success" (click)="setCustomDate()">{{customBtnLabel}}</button>
+      </div>
+
       <div class="btn-today-wrapper"
            [class.today-left]="todayPos === 'left'"
            [class.today-right]="todayPos === 'right'"
@@ -62,13 +70,13 @@
         <button class="btn btn-success" (click)="setToday()">{{todayBtnLbl}}</button>
       </div>
 
-        <div class="btn-clear-wrapper"
-        [class.clear-left]="clearPos === 'left'"
-        [class.clear-right]="clearPos === 'right'"
-        [class.clear-center]="clearPos === 'center'"
-        *ngIf="showClearBtn">
-          <button class="btn btn-success" (click)="clearDate()">{{clearBtnLbl}}</button>
-        </div>
+      <div class="btn-clear-wrapper"
+            [class.clear-left]="clearPos === 'left'"
+            [class.clear-right]="clearPos === 'right'"
+            [class.clear-center]="clearPos === 'center'"
+            *ngIf="showClearBtn">
+        <button class="btn btn-success" (click)="clearDate()">{{clearBtnLbl}}</button>
+      </div>
     </div>
 
   </div>

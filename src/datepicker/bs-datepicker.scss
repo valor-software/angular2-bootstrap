@@ -472,17 +472,23 @@
     }
 
     .clear-right,
+    .custom-right,
     .today-right {
       flex-grow: 0;
+      order: 3
     }
     .clear-left,
+    .custom-left,
     .today-left {
       flex-grow: 1;
+      order: 1
     }
 
     .clear-center,
+    .custom-center,
     .today-center {
       flex-grow: 0.5;
+      order: 2
     }
   }
 }

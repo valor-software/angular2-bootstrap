@@ -149,11 +149,19 @@ export class BsDatepickerConfig implements DatepickerRenderOptions {
    * Shows clear button
    */
   showClearButton = false;
+  /**
+   * CustomDate clear button
+   */
+  customDateButton?: Date = undefined;
 
   /**
    * Positioning of 'today' button
    */
   todayPosition = 'center';
+  /**
+   * Positioning of 'today' button
+   */
+  customPosition = 'left';
 
   /**
    * Positioning of 'clear' button
@@ -169,6 +177,10 @@ export class BsDatepickerConfig implements DatepickerRenderOptions {
    * Label for 'clear' button
    */
   clearButtonLabel = 'Clear';
+  /**
+   * Label for custom Button
+   */
+  customButtonLabel = 'Custom Date';
 
   /**
    * Label for 'custom range' button

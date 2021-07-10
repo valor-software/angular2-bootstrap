@@ -1045,6 +1045,24 @@ export const ngdoc: any = {
         "description": "<p>CSS class which will be applied to datepicker container,\nusually used to set color theme</p>\n"
       },
       {
+        "name": "customButtonLabel",
+        "defaultValue": "Custom",
+        "type": "string",
+        "description": "<p>Label for &#39;custom&#39; button</p>\n"
+      },
+      {
+        "name": "customDateButton",
+        "defaultValue": "undefined",
+        "type": "Date",
+        "description": "<p>Shows button to select this Date</p>\n"
+      },
+      {
+        "name": "customPosition",
+        "defaultValue": "right",
+        "type": "string",
+        "description": "<p>Positioning of &#39;custom&#39; button</p>\n"
+      },
+      {
         "name": "customRangeButtonLabel",
         "defaultValue": "Custom Range",
         "type": "string",

@@ -178,6 +178,22 @@ describe('datepicker:', () => {
     expect(buttonText.filter(button => button === clearBtnCustomLbl).length).toEqual(1);
   });
 
+  it('should show custom label for custom button if set in config', () => {
+    const customBtnCustomLbl = 'Clear current';
+    const datepickerDirective = getDatepickerDirective(fixture);
+    datepickerDirective.bsConfig = {
+      customButtonLabel: customBtnCustomLbl,
+      customDateButton: new Date()
+    };
+    showDatepicker(fixture);
+
+    const buttonText: string[] = [];
+    // fixture.debugElement.queryAll(By.css('button'))
+    Array.from(document.body.getElementsByTagName('button'))
+      .forEach(button => buttonText.push(button.textContent));
+    expect(buttonText.filter(button => button === customBtnCustomLbl).length).toEqual(1);
+  });
+
   describe('should start with', () => {
 
     const parameters = [
@@ -254,6 +270,37 @@ describe('datepicker:', () => {
       .subscribe(view => {
         expect(`${(view.date.getDate())}-${(view.date.getMonth())}-${(view.date.getFullYear())}`)
           .toEqual(`${(new Date().getDate())}-${(new Date().getMonth())}-${(new Date().getFullYear())}`);
+      }).unsubscribe();
+  });
+
+  it('should set custom date', () => {
+    const datepicker = showDatepicker(fixture);
+    const datepickerContainerInstance = getDatepickerContainer(datepicker);
+    const customDate = new Date(2099, 11, 31)
+    datepickerContainerInstance.customDateBtn = customDate;
+
+    datepickerContainerInstance[`_store`]
+      .select(state => state.view)
+      .subscribe(view => {
+        view.date = new Date(2020, 0, 1);
+      }).unsubscribe();
+    fixture.detectChanges();
+
+    datepickerContainerInstance[`_store`]
+      .select(state => state.view)
+      .subscribe(view => {
+        expect(`${(view.date.getDate())}-${(view.date.getMonth())}-${(view.date.getFullYear())}`)
+          .not.toEqual(`${(customDate.getDate())}-${(customDate.getMonth())}-${(customDate.getFullYear())}`);
+      }).unsubscribe();
+
+    datepickerContainerInstance.setCustomDate();
+    fixture.detectChanges();
+
+    datepickerContainerInstance[`_store`]
+      .select(state => state.view)
+      .subscribe(view => {
+        expect(`${(view.date.getDate())}-${(view.date.getMonth())}-${(view.date.getFullYear())}`)
+          .toEqual(`${(customDate.getDate())}-${(customDate.getMonth())}-${(customDate.getFullYear())}`);
       }).unsubscribe();
   });
 
