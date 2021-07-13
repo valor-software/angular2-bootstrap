@@ -13,10 +13,12 @@ export class SubComponent implements OnInit, OnDestroy {
 
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output()
+    // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   onInit = new EventEmitter<void>();
 
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output()
+    // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   onDestroy = new EventEmitter<void>();
 
   ngOnInit() {

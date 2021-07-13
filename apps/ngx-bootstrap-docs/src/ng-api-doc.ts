@@ -3924,7 +3924,7 @@ export const ngdoc: any = {
     "properties": []
   },
   "availablePaths": {
-    "fileName": "src/schematics/src/utils/index.ts",
+    "fileName": "src/schematics/src/utils/addStyles.ts",
     "className": "availablePaths",
     "description": "",
     "methods": [],

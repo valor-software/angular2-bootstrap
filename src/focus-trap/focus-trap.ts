@@ -38,8 +38,8 @@ import { InteractivityChecker } from './interactivity-checker';
  * @breaking-change for 11.0.0 Remove this class.
  */
 export class FocusTrap {
-  private _startAnchor: HTMLElement | null;
-  private _endAnchor: HTMLElement | null;
+  private _startAnchor?: HTMLElement | null;
+  private _endAnchor?: HTMLElement | null;
   private _hasAttached = false;
 
   // Event listeners for the anchors. Need to be regular functions so that we can unbind them later.
@@ -421,7 +421,7 @@ export class FocusTrapDirective implements OnDestroy, AfterContentInit, OnChange
     this._autoCapture = coerceBooleanProperty(value);
   }
 
-  private _autoCapture: boolean;
+  private _autoCapture = false;
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
